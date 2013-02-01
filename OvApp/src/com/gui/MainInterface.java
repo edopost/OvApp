@@ -1,5 +1,12 @@
 package com.gui;
 
-public class MainInterface {
+import javax.swing.JFrame;
+
+public class MainInterface extends JFrame{
+	
+	public MainInterface() {
+		
+	}
+ 	
 
 }

@@ -69,7 +69,7 @@ public class StopList {
 				System.out.println("JOSNObject containt no values");
 			}
 		} catch(NullPointerException ne) {
-			System.out.println("JOSNObject is null, 504 timeout??");
+			System.out.println("JOSNObject is null, 504 Gateway-Timeout");
 		}
 		
 	}
