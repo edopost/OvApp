@@ -35,6 +35,7 @@ public class StopList {
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void buildList(JSONObject jo) {
 		//build from the JSONObejct a arrayList with stops
 		try{

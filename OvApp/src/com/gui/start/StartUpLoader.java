@@ -7,6 +7,7 @@ import javax.swing.JProgressBar;
 
 public class StartUpLoader extends JFrame implements Runnable{
 
+	private static final long serialVersionUID = 261490374486851708L;
 	public boolean done = false;
 	private int procent = 0;
 	private String comment = "loading";
@@ -76,27 +77,23 @@ public class StartUpLoader extends JFrame implements Runnable{
 		this.comment = comment;
 	}
 
+	public void setWait(boolean wait) {
+		progress.setIndeterminate(wait);
+	}
+	
 	@Override
 	public void run() {
 		while(!done) {
 			progress.setValue(procent);
 			progress.setString(getComment());
 			
-			if(procent == 100 && !done) {
-				progress.setIndeterminate(true);
-			}
-			
 			try {
 				Thread.sleep(100);
-		//		procent++;
-				if(procent >= 100) {
-					done = true;
-				}
 				this.repaint();
 			} catch(InterruptedException e) {
 				
 			}
 		}
-		this.setVisible(false);
+		this.dispose();
 	}
 }

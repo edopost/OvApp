@@ -1,7 +1,10 @@
 package com.init;
 
 import com.REST.client.RestClient;
+import com.data.LineList;
+import com.data.ListHolder;
 import com.data.StopList;
+import com.data.TownList;
 import com.gui.MainInterface;
 import com.gui.start.StartUpLoader;
 
@@ -32,11 +35,25 @@ public class Initializer {
 		RestClient.URLPREFIX = "http://94.23.144.45:8080/";
 		loader.setProcent(6);
 		loader.setComment("recieving stop\'s");
-		StopList stopList = new StopList(RestClient.getJSONFromURL("stopareacode/"));
+		ListHolder.StopsList = new StopList(RestClient.getJSONFromURL("stopareacode/"));
 		loader.setProcent(25);
+		loader.setComment("building TownList");
+		ListHolder.TownList = new TownList(ListHolder.StopsList);
+		loader.setComment("recieving line\'s");
+		ListHolder.LineList = new LineList(RestClient.getJSONFromURL("line/"));
+		
+		
+		
+		loader.setComment("building user interdace");
 		MainInterface mainI = new MainInterface(loader);
 		Thread interfaceT = new Thread(mainI, "Interface");
 		interfaceT.start();
+		loader.setProcent(90);
+		
+		
+		
+		loader.setProcent(100);
+		loader.setWait(true);
 		loader.done = true;
 	}
 	
