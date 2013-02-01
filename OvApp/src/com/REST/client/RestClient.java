@@ -11,16 +11,35 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
+/**
+ * this class is made to get a JSON file from a REST based webserver
+ * you will only need the methjos getJSONFromURL(String url);
+ * 
+ * @author edopost
+ * @version V1.0
+ */
+
 
 public class RestClient {
 
-	
+		/**
+		 * because this class is only retruns a JSON object from a url,
+		 * you don't have to make an instance of it
+		 */
 		private RestClient() {
 		}
 	
 
-		
-		public static JSONObject getJSONFromURL(String url) throws ClientProtocolException, IOException, Exception{
+		/**
+		 * 
+		 * @param url, this is the url of the location of the JSON, for example:
+		 * "http://www.ovapi.nl/api78/stopareacode/" it need to be given in a Java.lang.String
+		 * @return if sucessful an JSONObject with the information you reqested
+		 */
+		@SuppressWarnings("finally")
+		public static JSONObject getJSONFromURL(String url) {
+			JSONObject jo = null;
+			try {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet(url);
 			HttpResponse response = client.execute(request);
@@ -28,11 +47,21 @@ public class RestClient {
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(in);
 			try {
-				return	((JSONObject) obj);
+	//			System.out.println(obj);
+				jo = ((JSONObject) obj);
+	//			System.out.println(jo);
 			} catch(Exception e) {
 				
 			}
-			return null;
+			} catch(ClientProtocolException cpe) { 
+				cpe.printStackTrace();
+			} catch(IOException IOe) {
+				IOe.printStackTrace();
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				return jo;
+			}
 		}
 	}
 

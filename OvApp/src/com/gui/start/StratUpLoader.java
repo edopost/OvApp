@@ -1,5 +1,19 @@
 package com.gui.start;
 
-public class StratUpLoader {
+import javax.swing.JFrame;
 
+public class StratUpLoader extends JFrame implements Runnable{
+
+	public boolean done = false;
+	
+	public StratUpLoader() {
+		
+	}
+	
+	@Override
+	public void run() {
+		while(!done) {
+			done = true;
+		}
+	}
 }
