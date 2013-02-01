@@ -2,11 +2,27 @@ package com.gui;
 
 import javax.swing.JFrame;
 
-public class MainInterface extends JFrame{
+import com.gui.start.StartUpLoader;
+
+public class MainInterface extends JFrame implements Runnable{
 	
-	public MainInterface() {
+	private StartUpLoader loader;
+
+	public MainInterface(StartUpLoader loader) {
+		this.loader = loader;
+		setSize(700, 600);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 		
 	}
- 	
 
+	
+	@Override
+	public void run() {
+		while(true) {
+			if(loader.isDone()) {
+				setVisible(true);
+			}
+		}
+	}
 }

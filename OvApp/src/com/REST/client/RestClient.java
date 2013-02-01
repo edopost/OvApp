@@ -22,6 +22,8 @@ import org.json.simple.parser.*;
 
 public class RestClient {
 
+		public static String URLPREFIX = null;
+	
 		/**
 		 * because this class is only retruns a JSON object from a url,
 		 * you don't have to make an instance of it
@@ -41,7 +43,7 @@ public class RestClient {
 			JSONObject jo = null;
 			try {
 			HttpClient client = new DefaultHttpClient();
-			HttpGet request = new HttpGet(url);
+			HttpGet request = new HttpGet(URLPREFIX + url);
 			HttpResponse response = client.execute(request);
 			InputStreamReader in = new InputStreamReader(response.getEntity().getContent());
 			JSONParser parser = new JSONParser();

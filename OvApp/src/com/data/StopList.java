@@ -8,6 +8,7 @@ import java.util.Set;
 import org.json.simple.*;
 
 import com.REST.actor.Stop;
+import com.gui.start.StartUpLoader;
 
 /**
  * this class whil hold a list from all stops
@@ -40,6 +41,13 @@ public class StopList {
 			if(!jo.isEmpty()) {
 				Set set = jo.entrySet();
 				Iterator i = set.iterator();
+				
+				int data = set.size();
+				int total = 25; 
+				double current = StartUpLoader.getInstance().getProcent();
+				double stepSize = total/data;
+				
+				
 				while(i.hasNext()) {
 					Map.Entry me = (Map.Entry)i.next(); 
 					String SpBern = (String) me.getKey();
@@ -57,19 +65,21 @@ public class StopList {
 						} else if(((String) me2.getKey()).equalsIgnoreCase("TimingPointTown")) {
 							TimingPointTown = (String) me2.getValue();
 						} else if(((String) me2.getKey()).equalsIgnoreCase("Latitude")) {
-							Latitude = Double.parseDouble((String) me2.getValue());
+							Latitude = (Double) me2.getValue();
 						} else if(((String) me2.getKey()).equalsIgnoreCase("Longitude")) {
-							Longitude = Double.parseDouble((String) me2.getValue());
+							Longitude = (Double) me2.getValue();
 						}
 					}
 					stops.add(new Stop(SpBern, Latitude, TimingPointName, Longitude, TimingPointTown));
-				}
+					current += stepSize;
+					StartUpLoader.getInstance().setProcent((int) current);
+ 				}
 				
 			} else {
 				System.out.println("JOSNObject containt no values");
 			}
 		} catch(NullPointerException ne) {
-			System.out.println("JOSNObject is null, 504 Gateway-Timeout");
+			System.out.println("JOSNObject is null, maybe connection issue");
 		}
 		
 	}

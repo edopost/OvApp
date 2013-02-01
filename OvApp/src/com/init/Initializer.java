@@ -2,7 +2,8 @@ package com.init;
 
 import com.REST.client.RestClient;
 import com.data.StopList;
-import com.gui.start.StratUpLoader;
+import com.gui.MainInterface;
+import com.gui.start.StartUpLoader;
 
 /**
  * this class will boot the application;
@@ -22,12 +23,21 @@ public class Initializer {
 	 */
 	public Initializer() {
 		//build the loader
-		StratUpLoader loader = new StratUpLoader();
+		StartUpLoader loader = new StartUpLoader();
 		Thread loaderT = new Thread(loader, "StartUpLoader");
 		loaderT.start();
+		loader.setProcent(5);
 		
 		//laod the bus stops
-		StopList stopList = new StopList(RestClient.getJSONFromURL("http://www.ovapi.nl/api78/stopareacode/"));
+		RestClient.URLPREFIX = "http://94.23.144.45:8080/";
+		loader.setProcent(6);
+		loader.setComment("recieving stop\'s");
+		StopList stopList = new StopList(RestClient.getJSONFromURL("stopareacode/"));
+		loader.setProcent(25);
+		MainInterface mainI = new MainInterface(loader);
+		Thread interfaceT = new Thread(mainI, "Interface");
+		interfaceT.start();
+		loader.done = true;
 	}
 	
 }

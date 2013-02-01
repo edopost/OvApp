@@ -5,14 +5,24 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
-public class StratUpLoader extends JFrame implements Runnable{
+public class StartUpLoader extends JFrame implements Runnable{
 
 	public boolean done = false;
 	private int procent = 0;
 	private String comment = "loading";
 	private JProgressBar progress;
+	private static StartUpLoader instance = null;
 	
-	public StratUpLoader() {
+	public static StartUpLoader getInstance() {
+		if(instance == null) {
+			return null;
+		} else {
+			return instance;
+		}
+	}
+	
+	public StartUpLoader() {
+		instance = this;
 		setUndecorated(true);
 		setSize(500, 350);
 		setLocationRelativeTo(null);
@@ -78,8 +88,8 @@ public class StratUpLoader extends JFrame implements Runnable{
 			
 			try {
 				Thread.sleep(100);
-				procent++;
-				if(procent==100) {
+		//		procent++;
+				if(procent >= 100) {
 					done = true;
 				}
 				this.repaint();
@@ -87,6 +97,6 @@ public class StratUpLoader extends JFrame implements Runnable{
 				
 			}
 		}
-		this.dispose();
+		this.setVisible(false);
 	}
 }
