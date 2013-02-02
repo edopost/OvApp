@@ -1,5 +1,12 @@
 package com.REST.actor;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import com.data.DetailedStopList;
+
 /**
  * This class wil be needed to hold the bus stops
  * @author edopost
@@ -18,6 +25,12 @@ public class Stop {
 	private double Longitude;
 	//stop town
 	private String TimingPointTown;
+	//detaild info
+	private DetailedStopList details;
+	//updateTime
+	private String lastUpdate;
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	
 	
 	public Stop(String SpBern, double Latitude, String TimingPointName, double Longitude, String TimingPointTown) {
 		this.SpBern = SpBern;
@@ -27,6 +40,18 @@ public class Stop {
 		this.TimingPointTown = TimingPointTown;
 	}
 
+	public DetailedStopList getDetails() {
+	//	if(details == null) {
+			details = new DetailedStopList(SpBern);
+			details.update();
+	//		lastUpdate = dateFormat.format(new Date()).toString();
+	//	} 
+		//TODO uupdate afeter 1 minit
+		
+		return details;
+	}
+	
+	
 	/**
 	 * @return the spBern
 	 */

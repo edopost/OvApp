@@ -100,9 +100,25 @@ public class StopList {
 	
 	public ArrayList<Stop> getStopsByTown(String Town) {
 		ArrayList<Stop> stopsByTown = new ArrayList<Stop>();
+		ArrayList<String> stopsInList = new ArrayList<String>();
 		for(int i = 0;i<stops.size();i++) {
-			if(stops.get(i).getTimingPointTown().equalsIgnoreCase(Town)) {
+			if(stops.get(i).getTimingPointTown().equalsIgnoreCase(Town) && !stopsInList.contains(stops.get(i).getTimingPointName())) {
 				stopsByTown.add(stops.get(i));
+				stopsInList.add(stops.get(i).getTimingPointName());
+			}
+		}
+		return stopsByTown;
+	}
+	
+	public String[] getStopsByTownArray(String Town) {
+		String[] stopsByTown = new String[getStopsByTown(Town).size()];
+		ArrayList<String> stopsInList = new ArrayList<String>();
+		int x = 0;
+		for(int i = 0;i<stops.size();i++) {
+			if(stops.get(i).getTimingPointTown().equalsIgnoreCase(Town) && !stopsInList.contains(stops.get(i).getTimingPointName())) {
+				stopsByTown[x] = stops.get(i).getTimingPointName();
+				stopsInList.add(stops.get(i).getTimingPointName());
+				x++;
 			}
 		}
 		return stopsByTown;

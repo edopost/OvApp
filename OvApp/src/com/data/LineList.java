@@ -103,6 +103,7 @@ public class LineList {
 	}
 	
 	public String[] getNameInArray() {
+		System.out.println(lines.size());
 		String[] array = new String[lines.size()];
 		for(int i = 0;i<array.length;i++) {
 			array[i] = (lines.get(i).getLinePublicNumber() + " " + lines.get(i).getDestinationName50());
