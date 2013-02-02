@@ -2,7 +2,6 @@ package com.REST.actor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import com.data.DetailedStopList;
@@ -28,6 +27,7 @@ public class Stop {
 	//detaild info
 	private DetailedStopList details;
 	//updateTime
+	@SuppressWarnings("unused")
 	private String lastUpdate;
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	

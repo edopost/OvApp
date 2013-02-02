@@ -1,9 +1,14 @@
 package com.gui.start;
 
 import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
+
+import com.gui.ImagePanel;
 
 public class StartUpLoader extends JFrame implements Runnable{
 
@@ -29,6 +34,15 @@ public class StartUpLoader extends JFrame implements Runnable{
 		setLocationRelativeTo(null);
 		progress = new JProgressBar();
 		progress.setStringPainted(true);
+		
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(this.getClass().getResource("/loader.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setContentPane(new ImagePanel(image));
+		setLayout(new BorderLayout());
 		
 		add(progress, BorderLayout.SOUTH);
 		

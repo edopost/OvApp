@@ -27,6 +27,7 @@ public class DetailedStopList {
 		Set set = job.entrySet();
 		Iterator i = set.iterator();
 		while (i.hasNext()) {
+			@SuppressWarnings("unused")
 			Map.Entry me = (Map.Entry) i.next();
 			Iterator iTpc = set.iterator();
 			while (iTpc.hasNext()) {
