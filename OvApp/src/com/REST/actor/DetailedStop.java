@@ -1,7 +1,5 @@
 package com.REST.actor;
 
-import java.util.Date;
-
 public class DetailedStop {
 
 	private String StopDetailed; //"QBUZZ_276959_g004_6017_0":{

@@ -11,12 +11,16 @@ import com.gui.start.StartUpLoader;
 /**
  * this class will boot the application;
  * @author edopost
- * @version V1.0
+ * @version V1.5
  *
  */
 
 public class Initializer {
 
+	/**
+	 * this is the entrypoint for the .jar application
+	 * @param arg
+	 */
 	public static void main(String[] arg) {
 		new Initializer();
 	}
@@ -41,20 +45,23 @@ public class Initializer {
 		ListHolder.TownList = new TownList(ListHolder.StopsList);
 		loader.setComment("recieving line\'s");
 		ListHolder.LineList = new LineList(RestClient.getJSONFromURL("line/"));
+		loader.setComment("procesing lists");
+		loader.setProcent(65);
 		
-		
-		
+		//build the main interface;
 		loader.setComment("building user interdace");
 		MainInterface mainI = new MainInterface(loader);
 		Thread interfaceT = new Thread(mainI, "Interface");
 		interfaceT.start();
 		loader.setProcent(90);
 		
-		
-		
 		loader.setProcent(100);
 		loader.setWait(true);
 		loader.done = true;
+		
+		//removing loader from system
+		loaderT = null;
+		loader = null;
 	}
 	
 }

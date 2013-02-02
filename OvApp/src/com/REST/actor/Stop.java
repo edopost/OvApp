@@ -44,9 +44,9 @@ public class Stop {
 	//	if(details == null) {
 			details = new DetailedStopList(SpBern);
 			details.update();
-	//		lastUpdate = dateFormat.format(new Date()).toString();
+			lastUpdate = dateFormat.format(new Date()).toString();
 	//	} 
-		//TODO uupdate afeter 1 minit
+		//TODO update only afeter 1 minit
 		
 		return details;
 	}
