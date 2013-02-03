@@ -82,8 +82,9 @@ public class StopList {
 		} catch(NullPointerException ne) {
 			System.out.println("JOSNObject is null, maybe connection issue");
 		}
-		
 	}
+	
+
 	
 	public void add(Stop stop) {
 		stops.add(stop);

@@ -29,6 +29,8 @@ public class MainInterface extends JFrame implements Runnable, MouseListener, Mo
 	private JComboBox<String> stationsInTown;
 
 	private DetailedStopPanel detailedStopPanel;
+	
+	private Timer updateTimer;
 
 	public MainInterface(StartUpLoader loader) {
 		addMouseListener(this);
@@ -71,9 +73,12 @@ public class MainInterface extends JFrame implements Runnable, MouseListener, Mo
 		footer.setAlignmentX(CENTER_ALIGNMENT);
 		add(footer, BorderLayout.SOUTH);
 		
+
 		
 		Stop stop = ListHolder.StopsList.getStopByName(stationsInTown.getSelectedItem().toString());
 		detailedStopPanel.updateInformation(stop.getDetails());
+		updateTimer = new Timer(60000, this);
+		updateTimer.start();
 
 	}
 
@@ -157,6 +162,9 @@ public class MainInterface extends JFrame implements Runnable, MouseListener, Mo
 				Stop stop = ListHolder.StopsList.getStopByName(stationsInTown.getSelectedItem().toString());
 				detailedStopPanel.updateInformation(stop.getDetails());
 			}
+		} else if(e.getSource().equals(updateTimer)) {
+			Stop stop = ListHolder.StopsList.getStopByName(stationsInTown.getSelectedItem().toString());
+			detailedStopPanel.updateInformation(stop.getDetails());
 		}
 		repaint();
 	}

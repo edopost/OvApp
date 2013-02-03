@@ -13,7 +13,7 @@ import com.data.DetailedStopList;
  *
  */
 
-public class Stop {
+public class Stop implements Comparable<Stop>{
 	//stop code
 	private String SpBern;
 	//latitude
@@ -27,9 +27,7 @@ public class Stop {
 	//detaild info
 	private DetailedStopList details;
 	//updateTime
-	@SuppressWarnings("unused")
-	private String lastUpdate;
-	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	private Date lastUpdate;
 	
 	
 	public Stop(String SpBern, double Latitude, String TimingPointName, double Longitude, String TimingPointTown) {
@@ -40,14 +38,14 @@ public class Stop {
 		this.TimingPointTown = TimingPointTown;
 	}
 
+	@SuppressWarnings("deprecation")
 	public DetailedStopList getDetails() {
-	//	if(details == null) {
+		Date timeNow = new Date();
+		if(details == null || timeNow.getMinutes() < lastUpdate.getMinutes() || lastUpdate.getMinutes() == 0) {
 			details = new DetailedStopList(SpBern);
 			details.update();
-			lastUpdate = dateFormat.format(new Date()).toString();
-	//	} 
-		//TODO update only afeter 1 minit
-		
+			lastUpdate = new Date();
+		} 
 		return details;
 	}
 	
@@ -86,6 +84,19 @@ public class Stop {
 	public String getTimingPointTown() {
 		return TimingPointTown;
 	}
+	
+	public int Compare(Object lhs, Object rhs)
+	  {
+	    Stop lhsStop = (Stop) lhs;
+	    Stop rhsStop = (Stop) rhs;
+	    return lhsStop.getTimingPointName().compareTo(rhsStop.getTimingPointName());
+	  }
+
+	@Override
+	public int compareTo(Stop o) {
+		return Compare(this, o);
+	}
+	
 	
 	
 }
